@@ -43,7 +43,7 @@ export class LancamentoService {
     }
 
     return this.http.get(`${this.lancamentosUrl}?resumo`,
-        { headers, search: params })
+      { headers, search: params })
       .toPromise()
       .then(response => {
         const responseJson = response.json();
@@ -56,5 +56,15 @@ export class LancamentoService {
 
         return resultado;
       })
+  }
+
+  excluir(codigo: number): Promise<void> {
+    const headers = new Headers();
+
+    headers.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+
+    return this.http.delete(`${this.lancamentosUrl}/${codigo}` , {headers})
+    .toPromise()
+    .then(() => null);
   }
 }
